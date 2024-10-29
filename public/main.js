@@ -17,13 +17,16 @@ form.addEventListener('submit', async (e) => {
     const formData = new FormData(e.target);
     console.log(formData)
 
-    try {
-        const data = await fetch('http://localhost/api/files/edit-all',{
+
+       fetch('http://localhost/api/files/edit-all',{
             method: 'POST',
             body: formData,
-        });
-    } catch (e) {
-    }
+        })
+        setTimeout(async ()=>{
+            const {data} = await getAllFiles();
+            createFilesMarkup(data)
+        },10000)
+
 })
 async function getAllFiles(page = currentPage, sort = selectedSort, order = orderSort) {
     const current = page ? page : 1;
