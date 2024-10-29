@@ -22,8 +22,12 @@ form.addEventListener('submit', async (e) => {
             method: 'POST',
             body: formData,
         })
+    backdrop.classList.add('is-hidden');
+
+
         setTimeout(async ()=>{
             const {data} = await getAllFiles();
+            document.querySelector('.action-items__select-all').checked = false;
             createFilesMarkup(data)
         },10000)
 
@@ -357,10 +361,10 @@ function handleOpenModal() {
 function handleClickEditAll() {
 
     const editBtn = document.querySelector('.action-items__edit-all');
-    console.log(editBtn)
     editBtn.addEventListener('click', async (e) => {
-        handleOpenModal()
         const elements = Array.from(document.querySelectorAll('.content-file-item._selected'));
+        if (elements.length === 0) return
+        handleOpenModal()
         console.log(elements)
         elements.forEach(element => {
             const elementId = element.querySelector('.file-item__text').dataset.id;
