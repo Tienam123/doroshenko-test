@@ -24,11 +24,11 @@ form.addEventListener('submit', async (e) => {
         })
     backdrop.classList.add('is-hidden');
 
-
         setTimeout(async ()=>{
             const {data} = await getAllFiles();
             document.querySelector('.action-items__select-all').checked = false;
             createFilesMarkup(data)
+            handleClickFileCard()
         },10000)
 
 })
@@ -342,7 +342,7 @@ function handleClickDownloadAllFromServer() {
                 body:formData,
             })
             const data =  await res.json();
-            console.log(data)
+
             const link = document.createElement('a');
             link.href = data.message; // Замените на ссылку на файл
             link.download ='files'; // Замените на имя файла для сохранения
@@ -365,7 +365,7 @@ function handleClickEditAll() {
         const elements = Array.from(document.querySelectorAll('.content-file-item._selected'));
         if (elements.length === 0) return
         handleOpenModal()
-        console.log(elements)
+
         elements.forEach(element => {
             const elementId = element.querySelector('.file-item__text').dataset.id;
             const elementName = element.querySelector('.file-item__text').textContent;
