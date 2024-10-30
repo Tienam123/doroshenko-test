@@ -164,7 +164,6 @@ function handleSelectAllBtn() {
     const checkbox = document.querySelector('.action-items__select-all');
     checkbox.checked = false;
     checkbox.addEventListener('change', async (e) => {
-        console.log(e.target.checked)
         const elements = document.querySelectorAll('.content-file-item');
         if (e.target.checked) {
             elements.forEach(element => {
