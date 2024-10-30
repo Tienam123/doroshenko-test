@@ -233,6 +233,13 @@ function handleClickDownloadAll() {
             })
             if (arrFiles.length > 0) {
                 sendFilesToServer(arrFiles)
+                setTimeout(async ()=>{
+                    const {data} = await getAllFiles();
+                    document.querySelector('.action-items__select-all').checked = false;
+                    createFilesMarkup(data)
+                    handleClickFileCard()
+                    handleClickFileInput()
+                },1000)
             } else {
                 alert('Нет файлов для загрузки')
             }
@@ -316,10 +323,18 @@ async function deleteManyFiles(arr) {
         formData.append(`file_${element.id}`, element.name);
     })
     try {
-        const data = await fetch('http://localhost/api/files/delete-many', {
+        const response = await fetch('http://localhost/api/files/delete-many', {
             method: 'POST',
             body: formData,
         })
+      setTimeout(async ()=>{
+          const {data} = await getAllFiles();
+          document.querySelector('.action-items__select-all').checked = false;
+          createFilesMarkup(data)
+          handleClickFileCard()
+          handleClickFileInput()
+      },0)
+
     } catch (e) {
         console.error(e)
     }
