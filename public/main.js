@@ -155,6 +155,7 @@ function handleClickUploadBtn() {
             }
             const res = await sendFileToServer(singleFile);
             input.textContent = res.data.file
+            handleClickFileInput()
         })
     })
 }
